@@ -13,6 +13,8 @@ public class WordleRecommendation
         this._wl = wlProvider;
     }
 
+    private const RegexOptions DEFAULT_REGEX_OPTIONS = RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled;
+
     public async Task<List<Recommendation>> GetRecommendation(string requiredChars, string excludedCharacters, string positionData)
     {
         var wordList = await _wl.LoadAsync();
@@ -44,7 +46,7 @@ public class WordleRecommendation
     private Regex BuildRequiredCharsFilter(string requiredChars)
     {
         var exp = string.Format($"(?=.*{requiredChars})");
-        return new Regex(exp, RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        return new Regex(exp, DEFAULT_REGEX_OPTIONS);
     }
 
     private Regex BuildExcludeCharsFilter(string excludedCharacters)
@@ -52,12 +54,12 @@ public class WordleRecommendation
         
         var exp = string.Join(",", excludedCharacters.Split());
 
-        return new Regex($"[{exp}]", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        return new Regex($"[{exp}]",DEFAULT_REGEX_OPTIONS );
     }
 
     private Regex BuildPositionFilter(string positionData)
     {
-        return new Regex(positionData, RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        return new Regex(positionData, DEFAULT_REGEX_OPTIONS);
     }
 
     private Recommendation ConvertToRecommendation(string w, WordDictionary wl)
