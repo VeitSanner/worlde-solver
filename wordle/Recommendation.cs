@@ -1,9 +1,9 @@
 namespace Sanner.Wordle.Solver.Wordle;
 
-public class Recommendation
+public record Recommendation
 {
-    public string Word {get;set;}
-    public int Score { get; set; }
+    public string Word {get;init;}
+    public int Score { get; init; }
 
-    public int Frequency { get; set; }
-}
+    public int Frequency { get; init; }
+};
