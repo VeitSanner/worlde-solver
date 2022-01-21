@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="RequiredCharacters" class="form-label">@Html.DisplayNameFor(p =>
+                p.RequiredCharacters)</label>
+            <input asp-for="RequiredCharacters" class="form-control" placeholder="qfrt" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ExcludedCharacters" class="form-label">@Html.DisplayNameFor(p =>
+                p.ExcludedCharacters)</label>
+            <input asp-for="ExcludedCharacters" class="form-control" placeholder="mkl" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="PositionData" class="form-label">@Html.DisplayNameFor(p => p.PositionData)</label>
+            <input asp-for="PositionData" class="form-control" placeholder="....." maxlength="5" minlength="5" />
+        </div>
+        <input type="submit" />
+    </form>
+</div>
+@if (Model.RecommendedWords.Any())
+{
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Word</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i=0; i < Model.RecommendedWords.Count;i++)
+                {
+                    var number = i + 1;
+                    <tr>
+                        <td>@number</td>
+                        <td>@Model.RecommendedWords[i].Word</td>
+                        <td>@Model.RecommendedWords[i].Score</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
