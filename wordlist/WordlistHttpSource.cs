@@ -6,18 +6,19 @@ namespace Sanner.Wordle.Solver.WordList;
 public class WordlistHttpSource : IWordListProvider
 {
     private HttpClient _client;
-    private string _targetUrl;
 
     private WordDictionary _wordList;
     private readonly Regex _wordListFilter;
-    private int _wordLength = 5;
 
     public WordlistHttpSource(IConfiguration cfg, IHttpClientFactory httpClientFactory)
     {
         this._client = httpClientFactory.CreateClient("wordlistloader");
         this._client.BaseAddress = cfg.GetSection("WordList").GetValue<Uri>("Url");
+
+        var wordLength = cfg.GetSection("WordList").GetValue<int>("WordLength");
+        this._wordListFilter = new Regex(string.Format("^[A-Za-z]{{{0}}}$", wordLength));
+        
         this._wordList = new WordDictionary();
-        this._wordListFilter = new Regex(string.Format("^[A-Za-z]{{{0}}}$", _wordLength));
     }
 
     public async Task<WordDictionary> LoadAsync() 
@@ -51,5 +52,4 @@ public class WordlistHttpSource : IWordListProvider
         }
         return result;
     }
-
 }
