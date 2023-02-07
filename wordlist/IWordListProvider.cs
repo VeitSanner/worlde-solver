@@ -1,6 +1,6 @@
 using Sanner.Wordle.Solver.WordList;
 
-namespace Sanner.Wordle.Solver.Wordle;
+namespace Sanner.Wordle.Solver.WordList;
 
 public interface IWordListProvider
 {

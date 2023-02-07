@@ -1,4 +1,3 @@
-using Sanner.Wordle.Solver.Wordle;
 using System.Collections.ObjectModel;
 
 namespace Sanner.Wordle.Solver.WordList;
@@ -25,13 +24,13 @@ public class WordDictionary
 
         var score = 0;
 
-        foreach (char c in GetListOfDistinctChars(word))
+        foreach (char letter in GetListOfDistinctLetters(word))
         {
-            if (!Scores.ContainsKey(c))
+            if (!Scores.ContainsKey(letter))
             {
                 continue;
             }
-            score += Scores[c];
+            score += Scores[letter];
         }
 
         return score;
@@ -41,21 +40,21 @@ public class WordDictionary
     {
         foreach (var word in Words)
         {
-            foreach (char c in GetListOfDistinctChars(word))
+            foreach (char letter in GetListOfDistinctLetters(word))
             {
-                if (!Scores.ContainsKey(c))
+                if (!Scores.ContainsKey(letter))
                 {
-                    Scores[c] = 1;
+                    Scores[letter] = 1;
                 }
                 else
                 {
-                    Scores[c] = Scores[c] + 1;
+                    Scores[letter] = Scores[letter] + 1;
                 }
             }
         }
     }
 
-    private IEnumerable<char> GetListOfDistinctChars(string word)
+    private IEnumerable<char> GetListOfDistinctLetters(string word)
     {
         return word.ToLowerInvariant().ToCharArray().Distinct();
     }

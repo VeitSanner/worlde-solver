@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton(typeof(Sanner.Wordle.Solver.Wordle.IWordListProvider), typeof(Sanner.Wordle.Solver.WordList.WordlistHttpSource));
+builder.Services.AddSingleton(typeof(Sanner.Wordle.Solver.WordList.IWordListProvider), typeof(Sanner.Wordle.Solver.WordList.WordlistHttpSource));
 builder.Services.AddSingleton<Sanner.Wordle.Solver.Wordle.WordleRecommendation>();
 
 var app = builder.Build();
